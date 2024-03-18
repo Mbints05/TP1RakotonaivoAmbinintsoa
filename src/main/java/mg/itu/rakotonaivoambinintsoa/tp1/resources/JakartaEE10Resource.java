@@ -1,4 +1,4 @@
-package mg.itu.rakotonaivoambinintsoa.tp1.entities.resources;
+package mg.itu.rakotonaivoambinintsoa.tp1.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
