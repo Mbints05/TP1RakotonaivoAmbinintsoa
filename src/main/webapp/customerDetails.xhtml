@@ -16,7 +16,8 @@
         <f:view>
 
 
-            <h:form>
+            <h:form rendered="#{customerDetailsBean.customer != null}">
+                <h:outputText value="Aucun client avec l'id #{customerDetailsBean.idCustomer} !" rendered="#{customerDetailsBean.customer == null}"/>
                 <h1><h:outputText value="Create/Edit"/></h1>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="CustomerId:" for="customerId" />
@@ -40,15 +41,20 @@
                     <h:outputLabel value="CreditLimit:" for="creditLimit" />
                     <h:inputText id="creditLimit" value="#{customerDetailsBean.customer.creditLimit}" title="CreditLimit" />
                     <h:outputLabel value="Discount:" for="discount" />
-                    <h:selectOneMenu id="discount" value="#{customerDetailsBean.customer.discount}" title="Discount" required="true" requiredMessage="The Discount field is required.">
+                    <h:selectOneMenu id="discount" value="#{customerDetailsBean.customer.discount}" title="Discount" required="true" converter="discountConverter" requiredMessage="The Discount field is required.">
                         <!-- TODO: update below reference to list of available items-->
-                        <f:selectItems value="#{customerDetailsBean.discounts}" var="discount" itemLabel="#{discount.code}"/>
+                        <f:selectItems value="#{customerDetailsBean.discounts}" var="discount" itemLabel="#{discount.code} (#{discount.rate}%)" itemValue="#{discount}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="Zip:" for="zip" />
-                    <h:selectOneMenu id="zip" value="#{customerDetailsBean.customer.zip}" title="Zip" required="true" requiredMessage="The Zip field is required.">
+                    <h:selectOneMenu id="zip" value="#{customerDetailsBean.customer.zip}" title="Zip" required="true" converter="microMarketConverter" requiredMessage="The Zip field is required.">
                         <!-- TODO: update below reference to list of available items-->
-                        <f:selectItems value="#{fixme}"/>
+                        <f:selectItems value="#{customerDetailsBean.microMarkets}" var="microMarket" itemLabel="#{microMarket.zipCode} : #{microMarket.radius}" itemValue="#{microMarket}"/>
                     </h:selectOneMenu>
+
+                    <h:button id="back" value="Revenir à la liste" outcome="customerList"/>
+                    <h:commandButton id="update" value="Enregistrer" action="#{customerDetailsBean.update}"/>
+                    <h:messages/>
+                    
                 </h:panelGrid>
             </h:form>
         </f:view>

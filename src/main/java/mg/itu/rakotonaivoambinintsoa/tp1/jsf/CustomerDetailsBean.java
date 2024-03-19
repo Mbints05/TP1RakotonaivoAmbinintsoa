@@ -11,8 +11,10 @@ import jakarta.inject.Named;
 import java.util.List;
 import mg.itu.rakotonaivoambinintsoa.tp1.entities.Customer;
 import mg.itu.rakotonaivoambinintsoa.tp1.entities.Discount;
+import mg.itu.rakotonaivoambinintsoa.tp1.entities.MicroMarket;
 import mg.itu.rakotonaivoambinintsoa.tp1.service.CustomerManager;
 import mg.itu.rakotonaivoambinintsoa.tp1.service.DiscountManager;
+import mg.itu.rakotonaivoambinintsoa.tp1.service.MicroMarketManager;
 
 /**
  * Backing bean pour la page customerDetails.xhtml.
@@ -24,11 +26,14 @@ public class CustomerDetailsBean implements Serializable {
     private int idCustomer;
     private Customer customer;
     private Discount discount;
+    private MicroMarket microMarket;
 
     @Inject
     private CustomerManager customerManager;
     @Inject
     private DiscountManager discountManager;
+    @Inject
+    private MicroMarketManager microMarketManager;
 
     public int getIdCustomer() {
         return idCustomer;
@@ -78,5 +83,9 @@ public class CustomerDetailsBean implements Serializable {
      */
     public List<Discount> getDiscounts() {
         return discountManager.getAllDiscounts();
+    }
+    
+    public List<MicroMarket> getMicroMarkets(){
+        return microMarketManager.getAllMicromarket();
     }
 }
