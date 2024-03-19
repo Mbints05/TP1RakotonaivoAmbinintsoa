@@ -15,30 +15,36 @@ import mg.itu.rakotonaivoambinintsoa.tp1.entities.Customer;
 
 /**
  * Façade pour gérer les Customers.
+ *
  * @author rakot
  */
 @RequestScoped
 public class CustomerManager {
-    
+
     //l'EntityManager (c'est l'annotation @PersistenceContext qui provoquera l'injection)
     @PersistenceContext(unitName = "customerPU")
     private EntityManager em;
 
     //getAllCustomers() qui retourne la liste de tous les customers ;
-    public List<Customer> getAllCustomers(){
+    public List<Customer> getAllCustomers() {
         Query query = em.createNamedQuery("Customer.findAll");
         return query.getResultList();
     }
-    
+
     //update qui met à jour un customer dans la base de données.
     @Transactional
-    public Customer update(Customer customer){
+    public Customer update(Customer customer) {
         return em.merge(customer);
     }
-    
+
     //une méthode persist pour ajouter un nouveau customer dans la base de données, avec les valeurs contenues dans l'entité passée en paramètre
     @Transactional
     public void persist(Customer customer) {
-       em.persist(customer);
+        em.persist(customer);
+    }
+    
+    //Chercher par ID
+    public Customer findById(int idCustomer) {
+        return em.find(Customer.class, idCustomer);
     }
 }
